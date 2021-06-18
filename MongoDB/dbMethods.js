@@ -1,4 +1,4 @@
-const { Book } = required('./DB.js');
+const { Book } = require('./DB.js');
 
 // Database methods.
 
@@ -6,7 +6,21 @@ const getBooks = (done) => {
 
 };
 const createBook = (bookTitle, done) => {
-    
+    Book.findOne({book_title: bookTitle}, (err, foundBook) => {
+        if(err) return done("Book can not be created")
+        if(!foundBook){
+            let newBook = new Book({
+                book_title: bookTitle,
+                commentcount: 0
+            });
+            newBook.save((err, data) => {
+                if(err) return done("Book can not be created");
+                done(null, data);
+            });
+        } else {
+            done("Book with the title:" + foundBook.book_title + " already exists")
+        }
+    });
 };
 const deleteAllBooks = (done) => {
     
