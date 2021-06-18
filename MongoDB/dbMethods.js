@@ -33,7 +33,7 @@ const createBook = (bookTitle, done) => {
     });
 };
 const deleteAllBooks = (done) => {
-    Book.remove({}, (err, deletedBooks) => {
+    Book.deleteMany({}, (err, deletedBooks) => {
         if(err) return done("Failed to delete all books");
         if(deletedBooks){
             done(null, deletedBooks);
@@ -42,8 +42,17 @@ const deleteAllBooks = (done) => {
         }
     });
 };
-const getOneBook = (done) => {
-    
+const getOneBook = (bookId, done) => {
+    let bookQuery = Book.find({_id: bookId});
+    bookQuery.select('-__v');
+    bookQuery.exec((err, bookFound) => {
+        if(err) return done("Can not find book")
+        if(bookFound){
+            done(null, bookFound);
+        } else {
+            done("no book exists");
+        }
+    });
 };
 const createBookComment = (done) => {
     

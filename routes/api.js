@@ -21,7 +21,7 @@ module.exports = function (app) {
     .post(function (req, res){
         //response will contain new book object
         let title = req.body.title;
-        if(!title) return res.json({error: 'missing required field title'});
+        if(!title) return res.send('missing required field title');
         createBook(title, (err, newBook) => {
         if(err) return res.json({error: err});
         res.json({
@@ -46,6 +46,10 @@ module.exports = function (app) {
   app.route('/api/books/:id')
     .get(function (req, res){
       let bookid = req.params.id;
+      getOneBook(bookid, (err, foundBook) => {
+        if(err) return res.send(err);
+        res.json(foundBook);
+      });
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
     })
     
