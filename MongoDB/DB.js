@@ -5,8 +5,9 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-    title: {type: String, required: true},
-    commentCount: {type: Number, required: true}
+    book_title: {type: String, required: true},
+    commentcount: {type: Number, required: true},
+    comments: {type: [String]}
 });
 
 // Create DB model.
