@@ -35,9 +35,7 @@ module.exports = function (app) {
         // Delete all Books and respond with and returns result
         deleteAllBooks((err, deletedBooks) => {
             if(err) return res.json({error: err});
-            res.json({
-                result: 'complete delete successful'
-            });
+            res.send('complete delete successful');
         })
     });
 
@@ -66,6 +64,10 @@ module.exports = function (app) {
     
     .delete(function(req, res){
       let bookid = req.params.id;
+      deleteOneBook(bookid, (err, deletedBook) => {
+          if(err) return res.send(err);
+          res.send('delete successful');
+      });
       //if successful response will be 'delete successful'
     });
   

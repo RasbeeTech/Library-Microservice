@@ -71,8 +71,15 @@ const createBookComment = (bookId, comment, done) => {
         }
     })
 };
-const deleteOneBook = (done) => {
-    
+const deleteOneBook = (bookId, done) => {
+    Book.findOneAndDelete({_id: bookId}, (err, deletedBook) => {
+        if(err) return done("Can not delete");
+        if(deletedBook){
+            done(null, deletedBook);
+        } else {
+            done("no book exists")
+        }
+    });
 };
 
 module.exports = {
