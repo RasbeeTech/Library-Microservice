@@ -43,7 +43,7 @@ const deleteAllBooks = (done) => {
     });
 };
 const getOneBook = (bookId, done) => {
-    let bookQuery = Book.find({_id: bookId});
+    let bookQuery = Book.findOne({_id: bookId});
     bookQuery.select('-__v');
     bookQuery.exec((err, bookFound) => {
         if(err) return done("no book exists")
@@ -58,7 +58,7 @@ const createBookComment = (bookId, comment, done) => {
     let bookQuery = Book.findOne({_id: bookId});
     bookQuery.select('-__v');
     bookQuery.exec((err, bookFound) => {
-        if(err) return done("Can not create comment");
+        if(err) return done("no book exists");
         if(bookFound){
             bookFound.comments.push(comment);
             bookFound.commentcount++ ;
@@ -73,7 +73,7 @@ const createBookComment = (bookId, comment, done) => {
 };
 const deleteOneBook = (bookId, done) => {
     Book.findOneAndDelete({_id: bookId}, (err, deletedBook) => {
-        if(err) return done("Can not delete");
+        if(err) return done("no book exists");
         if(deletedBook){
             done(null, deletedBook);
         } else {
