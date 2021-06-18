@@ -1,5 +1,5 @@
 'use strict';
-getBooks
+const { getBooks } = require('../mongodb/dbMethods.js');
 const { createBook } = require('../mongodb/dbMethods.js');
 const { deleteAllBooks } = require('../mongodb/dbMethods.js');
 const { getOneBook } = require('../mongodb/dbMethods.js');
@@ -16,6 +16,15 @@ module.exports = function (app) {
     
     .post(function (req, res){
       let title = req.body.title;
+      if(!title) return res.json({error: 'missing required field title'});
+
+      createBook(title, (err, newBook) => {
+        if(err) return res.json({error: err});
+        res.json({
+            _id: newBook._id,
+            book_title: newBook.book_title
+        });
+      });
       //response will contain new book object including atleast _id and title
     })
     
