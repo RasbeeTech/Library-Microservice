@@ -54,8 +54,22 @@ const getOneBook = (bookId, done) => {
         }
     });
 };
-const createBookComment = (done) => {
-    
+const createBookComment = (bookId, comment, done) => {
+    let bookQuery = Book.findOne({_id: bookId});
+    bookQuery.select('-__v');
+    bookQuery.exec((err, bookFound) => {
+        if(err) return done("Can not create comment");
+        if(bookFound){
+            bookFound.comments.push(comment);
+            bookFound.commentcount++ ;
+            bookFound.save((err, data) => {
+                if(err) return done("can not create comment");
+                done(null, data);
+            });
+        } else {
+            done("no book exists");
+        }
+    })
 };
 const deleteOneBook = (done) => {
     

@@ -56,6 +56,11 @@ module.exports = function (app) {
     .post(function(req, res){
       let bookid = req.params.id;
       let comment = req.body.comment;
+      if(!comment) return res.send('missing required field comment');
+      createBookComment(bookid, comment, (err, updatedBook) => {
+        if(err) return res.send(err);
+        res.json(updatedBook);
+      });
       //json res format same as .get
     })
     
