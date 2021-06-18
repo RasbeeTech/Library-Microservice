@@ -10,22 +10,25 @@ module.exports = function (app) {
 
   app.route('/api/books')
     .get(function (req, res){
-      //response will be array of book objects
-      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+        // response will be array of book objects
+        // json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+        getBooks((err, allBooks) => {
+            if(err) return res.json({error: err});
+            res.json(allBooks);
+        });
     })
     
     .post(function (req, res){
-      let title = req.body.title;
-      if(!title) return res.json({error: 'missing required field title'});
-
-      createBook(title, (err, newBook) => {
+        //response will contain new book object
+        let title = req.body.title;
+        if(!title) return res.json({error: 'missing required field title'});
+        createBook(title, (err, newBook) => {
         if(err) return res.json({error: err});
         res.json({
             _id: newBook._id,
             book_title: newBook.book_title
         });
-      });
-      //response will contain new book object including atleast _id and title
+        });
     })
     
     .delete(function(req, res){

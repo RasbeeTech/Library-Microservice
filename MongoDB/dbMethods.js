@@ -3,7 +3,17 @@ const { Book } = require('./DB.js');
 // Database methods.
 
 const getBooks = (done) => {
-
+    let bookQuery = Book.find({});
+    bookQuery.select('-__v');
+    bookQuery.select('-comments');
+    bookQuery.exec((err, allBooks) => {
+        if(err) return done("Can not retrieve books")
+        if(allBooks){
+            done(null, allBooks);
+        } else {
+            done("Can not retrieve books");
+        }
+    });
 };
 const createBook = (bookTitle, done) => {
     Book.findOne({book_title: bookTitle}, (err, foundBook) => {
