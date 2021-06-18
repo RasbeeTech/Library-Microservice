@@ -26,7 +26,7 @@ module.exports = function (app) {
         if(err) return res.json({error: err});
         res.json({
             _id: newBook._id,
-            book_title: newBook.book_title
+            title: newBook.title
         });
         });
     })
