@@ -16,11 +16,11 @@ const getBooks = (done) => {
     });
 };
 const createBook = (bookTitle, done) => {
-    Book.findOne({book_title: bookTitle}, (err, foundBook) => {
+    Book.findOne({title: bookTitle}, (err, foundBook) => {
         if(err) return done("Book can not be created")
         if(!foundBook){
             let newBook = new Book({
-                book_title: bookTitle,
+                title: bookTitle,
                 commentcount: 0
             });
             newBook.save((err, data) => {
@@ -28,7 +28,7 @@ const createBook = (bookTitle, done) => {
                 done(null, data);
             });
         } else {
-            done("Book with the title:" + foundBook.book_title + " already exists")
+            done("Book with the title:" + foundBook.title + " already exists")
         }
     });
 };
@@ -46,7 +46,7 @@ const getOneBook = (bookId, done) => {
     let bookQuery = Book.find({_id: bookId});
     bookQuery.select('-__v');
     bookQuery.exec((err, bookFound) => {
-        if(err) return done("Can not find book")
+        if(err) return done("no book exists")
         if(bookFound){
             done(null, bookFound);
         } else {

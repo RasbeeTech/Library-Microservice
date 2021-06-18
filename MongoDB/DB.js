@@ -5,7 +5,7 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-    book_title: {type: String, required: true},
+    title: {type: String, required: true},
     commentcount: {type: Number, required: true},
     comments: {type: [String]}
 });
