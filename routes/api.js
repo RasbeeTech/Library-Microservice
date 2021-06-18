@@ -1,4 +1,10 @@
 'use strict';
+getBooks
+const { createBook } = require('../mongodb/dbMethods.js');
+const { deleteAllBooks } = require('../mongodb/dbMethods.js');
+const { getOneBook } = require('../mongodb/dbMethods.js');
+const { createBookComment } = require('../mongodb/dbMethods.js');
+const { deleteOneBook } = require('../mongodb/dbMethods.js');
 
 module.exports = function (app) {
 
