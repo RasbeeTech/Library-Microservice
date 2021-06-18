@@ -33,7 +33,14 @@ const createBook = (bookTitle, done) => {
     });
 };
 const deleteAllBooks = (done) => {
-    
+    Book.remove({}, (err, deletedBooks) => {
+        if(err) return done("Failed to delete all books");
+        if(deletedBooks){
+            done(null, deletedBooks);
+        } else {
+            done("Failed to delete all books");
+        }
+    });
 };
 const getOneBook = (done) => {
     

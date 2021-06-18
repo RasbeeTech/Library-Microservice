@@ -32,7 +32,13 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
-      //if successful response will be 'complete delete successful'
+        // Delete all Books and respond with and returns result
+        deleteAllBooks((err, deletedBooks) => {
+            if(err) return res.json({error: err});
+            res.json({
+                result: 'complete delete successful'
+            });
+        })
     });
 
 
