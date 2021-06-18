@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "mocha": "^3.2.0",
     "mongodb": "^3.6.2",
+    "mongoose": "^5.12.14",
     "zombie": "^5.0.5"
   },
   "repository": {
